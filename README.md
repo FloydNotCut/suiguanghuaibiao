@@ -45,7 +45,7 @@
 
 ## <font face="STCAIYUN"> 特别公告</font>
 
-<font face="华文新魏" size=5> 热烈祝贺团队成员能在 $NOIP$ 取得佳绩！！！</font>
+<font face="华文新魏" size=5> 热烈祝贺上附学子能在 $NOIP$ 取得佳绩！！！</font>
 
 ## <font face="STCAIYUN"> 作者的CSDN主页，求个关注呗！</font>
 [点击跳转](https://blog.csdn.net/Oscar_wzfg?spm=1010.2135.3001.5343)
