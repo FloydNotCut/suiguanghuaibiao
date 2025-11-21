@@ -1,0 +1,2828 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《碎光怀表》官方Wiki</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ff9eb5;
+            --primary-light: #ffb3c6;
+            --primary-dark: #e68ba4;
+            --secondary: #a6a7c5;
+            --background: #fef6f9;
+            --card-bg: #ffffff;
+            --text: #6a6b83;
+            --text-light: #a6a7c5;
+            --border: #e6e6fa;
+            --success: #9de3d0;
+            --warning: #ffd8a6;
+            --accent: #b19cd9;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* 侧边栏样式 */
+        .sidebar {
+            width: 280px;
+            background-color: var(--card-bg);
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px dashed var(--border);
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .logo p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .game-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 20px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-section {
+            margin-bottom: 25px;
+        }
+
+        .nav-section h3 {
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-bottom: 10px;
+        }
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            border-radius: 10px;
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background-color: var(--primary-light);
+            color: white;
+        }
+
+        .nav-links i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .category-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .category-tag {
+            background-color: var(--border);
+            color: var(--text);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-tag:hover, .category-tag.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* 视频相关样式 */
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .video-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-thumbnail {
+            position: relative;
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            cursor: pointer;
+        }
+
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-thumbnail .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .video-thumbnail:hover .play-button {
+            background-color: white;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .video-duration {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        .video-info {
+            padding: 20px;
+        }
+
+        .video-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 10px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .video-description {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .video-stats {
+            display: flex;
+            gap: 15px;
+        }
+
+        .video-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* 视频播放器模态框 */
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-modal .modal-content {
+            max-width: 900px;
+            background-color: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            width: 90%;
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: #111;
+            color: white;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .video-player {
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 比例 */
+            position: relative;
+        }
+
+        .video-player iframe,
+        .video-player video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-player-info {
+            padding: 20px;
+            background-color: var(--card-bg);
+        }
+
+        .video-player-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+
+        .video-player-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .video-player-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        /* 视频表单样式 */
+        .video-platforms {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .platform-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .platform-option:hover {
+            border-color: var(--primary);
+        }
+
+        .platform-option.selected {
+            border-color: var(--primary);
+            background-color: rgba(255, 158, 181, 0.1);
+        }
+
+        .platform-option input {
+            display: none;
+        }
+
+        .platform-icon {
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+
+        /* 首页视频区域 */
+        .home-videos {
+            margin-bottom: 40px;
+        }
+
+        .videos-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        /* 公告相关样式 */
+        .announcements-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .announcement-item {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            transition: all 0.3s ease;
+            border-left: 5px solid var(--primary);
+        }
+
+        .announcement-item.pinned {
+            border-left-color: var(--accent);
+            background-color: #fff9fb;
+        }
+
+        .announcement-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .announcement-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .announcement-title {
+            font-size: 1.4rem;
+            color: var(--text);
+            margin-bottom: 5px;
+        }
+
+        .announcement-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+
+        .announcement-pinned {
+            background-color: var(--accent);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        .announcement-content {
+            line-height: 1.7;
+            color: var(--text);
+            margin-bottom: 15px;
+        }
+
+        .announcement-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px dashed var(--border);
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .checkbox-label input {
+            width: auto;
+        }
+
+        /* 主内容区样式 */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 30px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px dashed var(--border);
+        }
+
+        .search-box {
+            position: relative;
+            width: 300px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border: 2px solid var(--border);
+            border-radius: 30px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 158, 181, 0.2);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 0.9rem;
+        }
+
+        /* Wiki内容样式 */
+        .wiki-header {
+            margin-bottom: 30px;
+        }
+
+        .home-videos {
+            grid-column: 1 / -1;
+        }
+
+        .wiki-header h2 {
+            font-size: 2rem;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+
+        .wiki-header p {
+            color: var(--text-light);
+            max-width: 800px;
+        }
+
+        .wiki-stats {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            flex: 1;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .wiki-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 30px;
+        }
+
+        .recent-entries, .wiki-sidebar {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .section-header h3 {
+            font-size: 1.3rem;
+            color: var(--text);
+        }
+
+        .entry-list {
+            list-style: none;
+        }
+
+        .entry-item {
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .entry-item:last-child {
+            border-bottom: none;
+        }
+
+        .entry-item h4 {
+            margin-bottom: 8px;
+        }
+
+        .entry-item h4 a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .entry-item h4 a:hover {
+            color: var(--primary);
+        }
+
+        .entry-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .entry-category {
+            background-color: var(--border);
+            padding: 3px 10px;
+            border-radius: 15px;
+        }
+
+        .entry-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .popular-entries, .wiki-categories {
+            margin-bottom: 30px;
+        }
+
+        .category-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        /* 游戏特色区域 */
+        .game-highlights {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .highlight-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .highlight-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .highlight-card h3 {
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .highlight-card p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* 表单样式 */
+        .form-container {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(255, 158, 181, 0.2);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        /* 条目详情页样式 */
+        .entry-detail {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .entry-header {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px dashed var(--border);
+        }
+
+        .entry-header h2 {
+            font-size: 2rem;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+
+        .entry-header-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .entry-content {
+            line-height: 1.8;
+        }
+
+        .entry-content h3 {
+            margin: 25px 0 15px;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .entry-content p {
+            margin-bottom: 15px;
+        }
+
+        .entry-content img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .entry-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px dashed var(--border);
+        }
+
+        /* 游戏特色区域 */
+        .game-story {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .story-image {
+            flex: 1;
+            min-width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .story-content {
+            flex: 2;
+        }
+
+        .story-content h2 {
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+
+        .story-content p {
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1200px) {
+            .wiki-content {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .announcements-preview {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .wiki-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .game-highlights {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .sidebar {
+                width: 200px;
+            }
+            
+            .main-content {
+                margin-left: 200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .wiki-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                position: static;
+                width: 100%;
+                height: auto;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                align-items: flex-start;
+            }
+            
+            .search-box {
+                width: 100%;
+            }
+            
+            .wiki-stats {
+                flex-direction: column;
+            }
+            
+            .game-highlights {
+                grid-template-columns: 1fr;
+            }
+            
+            .game-story {
+                flex-direction: column;
+            }
+            
+            .story-image {
+                width: 100%;
+            }
+        }
+
+        /* 动画效果 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* 通知样式 */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .notification.success {
+            background-color: var(--success);
+        }
+
+        .notification.error {
+            background-color: #ff6b8b;
+        }
+
+        .notification.hide {
+            animation: fadeOut 0.3s ease forwards;
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateX(0); }
+            to { opacity: 0; transform: translateX(100px); }
+        }
+
+        /* 导入导出区域 */
+        .import-export {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        .import-export-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-light);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 侧边导航栏 -->
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="game-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h1>碎光怀表</h1>
+                <p>官方游戏Wiki</p>
+            </div>
+            
+            <div class="nav-section">
+                <h3>导航</h3>
+                <ul class="nav-links">
+                    <li><a href="#" class="nav-link active" data-page="wiki-home"><i class="fas fa-home"></i> 首页</a></li>
+                    <li><a href="#" class="nav-link" data-page="wiki-entries"><i class="fas fa-book"></i> 所有条目</a></li>
+                    <li><a href="#" class="nav-link" data-page="wiki-announcements"><i class="fas fa-bullhorn"></i> 官方公告</a></li>
+                    <li><a href="#" class="nav-link" data-page="wiki-videos"><i class="fas fa-video"></i> 视频中心</a></li>
+                    <li><a href="#" class="nav-link" data-page="wiki-categories"><i class="fas fa-tags"></i> 分类浏览</a></li>
+                </ul>
+            </div>
+            
+            <div class="nav-section">
+                <h3>游戏系统</h3>
+                <ul class="nav-links">
+                    <li><a href="#" class="nav-link" data-category="时间机制"><i class="fas fa-cog"></i> 时间机制</a></li>
+                    <li><a href="#" class="nav-link" data-category="怀表功能"><i class="fas fa-hourglass-half"></i> 怀表功能</a></li>
+                    <li><a href="#" class="nav-link" data-category="特殊能力"><i class="fas fa-magic"></i> 特殊能力</a></li>
+                    <li><a href="#" class="nav-link" data-category="物品收集"><i class="fas fa-shopping-bag"></i> 物品收集</a></li>
+                </ul>
+            </div>
+            
+            <div class="nav-section">
+                <h3>游戏内容</h3>
+                <ul class="nav-links">
+                    <li><a href="#" class="nav-link" data-category="角色"><i class="fas fa-users"></i> 角色介绍</a></li>
+                    <li><a href="#" class="nav-link" data-category="地点"><i class="fas fa-map"></i> 世界地图</a></li>
+                    <li><a href="#" class="nav-link" data-category="剧情"><i class="fas fa-book-open"></i> 剧情解析</a></li>
+                    <li><a href="#" class="nav-link" data-category="谜题"><i class="fas fa-puzzle-piece"></i> 谜题攻略</a></li>
+                </ul>
+            </div>
+            
+            <div class="nav-section">
+                <h3>工具</h3>
+                <ul class="nav-links">
+                    <li><a href="#" class="nav-link" data-page="import-export"><i class="fas fa-upload"></i> 导入数据</a></li>
+                    <li><a href="#" class="nav-link" data-page="import-export"><i class="fas fa-download"></i> 导出数据</a></li>
+                    <li><a href="#" class="nav-link" data-page="settings"><i class="fas fa-cog"></i> 设置</a></li>
+                </ul>
+            </div>
+        </aside>
+        
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <header class="header">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-input" placeholder="搜索《碎光怀表》Wiki...">
+                </div>
+                
+                <div class="user-actions">
+                    <div class="user-info">
+                        <div class="user-avatar" id="user-avatar">玩</div>
+                        <span id="user-name">玩家</span>
+                    </div>
+                    <button class="btn" id="create-entry"><i class="fas fa-plus"></i> 贡献内容</button>
+                </div>
+            </header>
+            
+            <!-- Wiki首页内容 -->
+            <section class="wiki-home fade-in" id="wiki-home">
+                <div class="wiki-header">
+                    <h2>欢迎来到《碎光怀表》官方Wiki</h2>
+                    <p>探索时间之谜，修复破碎的怀表，揭开隐藏在时光中的秘密。</p>
+                </div>
+                
+                <div class="game-story">
+                    <div class="story-image">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="story-content">
+                        <h2>游戏故事</h2>
+                        <p>《碎光怀表》是一款以时间旅行为主题的治愈系剧情向RPG游戏。玩家扮演一位17岁的少年，得到了师父的一块神秘怀表。但这块怀表已经破碎，时间也因此变得混乱。</p>
+                        <p>你需要找齐碎片，随后穿越不同的时空，不断复原怀表，修复时间的裂痕，同时揭开一个关于河谷镇、记忆与选择的感人故事。</p>
+                        <button class="btn"><i class="fas fa-book-open"></i> 阅读完整故事</button>
+                    </div>
+                </div>
+                
+                <div class="game-highlights">
+                    <div class="highlight-card">
+                        <div class="highlight-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>充实剧情</h3>
+                        <p>通过修复怀表不断探索战争后的河谷镇吧！</p>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-icon">
+                            <i class="fas fa-puzzle-piece"></i>
+                        </div>
+                        <h3>回合制战斗</h3>
+                        <p>毕竟爱剪枝的Floyd喜欢玩宝可梦嘛(但好像新买的宝可梦ZA还没拆开？)</p>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-icon">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <h3>治愈风格</h3>
+                        <p>精美的治愈系美术风格，营造温馨的游戏体验</p>
+                    </div>
+                </div>
+                
+                <div class="wiki-stats">
+                    <div class="stat-card">
+                        <h3 id="stat-entries">0</h3>
+                        <p>Wiki条目</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="stat-categories">0</h3>
+                        <p>内容分类</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="stat-authors">0</h3>
+                        <p>贡献作者</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="stat-updates">0</h3>
+                        <p>今日更新</p>
+                    </div>
+                </div>
+
+                <div class="home-videos">
+                    <div class="section-header">
+                        <h3>精选视频</h3>
+                        <a href="#" class="btn-outline view-all-videos">查看更多</a>
+                    </div>
+                    
+                    <div class="videos-preview" id="home-videos-preview">
+                        <!-- 动态生成视频预览 -->
+                    </div>
+                </div>
+                
+                <div class="wiki-content">
+                    <div class="recent-entries">
+                        <div class="section-header">
+                            <h3>最新更新</h3>
+                            <a href="#" class="btn-outline view-all-entries">查看全部</a>
+                        </div>
+                        
+                        <ul class="entry-list" id="recent-entries-list">
+                            <!-- 动态生成 -->
+                        </ul>
+                    </div>
+
+                    <div class="announcements-preview">
+                        <div class="section-header">
+                            <h3>官方公告</h3>
+                            <a href="#" class="btn-outline view-all-announcements">查看全部</a>
+                        </div>
+                        
+                        <div class="announcements-list" id="home-announcements">
+                            <!-- 动态生成公告预览 -->
+                        </div>
+                    </div>
+                    
+                    <div class="wiki-sidebar">
+                        <div class="popular-entries">
+                            <div class="section-header">
+                                <h3>热门页面</h3>
+                            </div>
+                            
+                            <ul class="entry-list" id="popular-entries-list">
+                                <!-- 动态生成 -->
+                            </ul>
+                        </div>
+                        
+                        <div class="wiki-categories">
+                            <div class="section-header">
+                                <h3>内容分类</h3>
+                            </div>
+                            
+                            <div class="category-list" id="category-list">
+                                <!-- 动态生成 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 视频中心页面 -->
+            <section class="wiki-videos fade-in" id="wiki-videos" style="display: none;">
+                <div class="wiki-header">
+                    <h2>视频中心</h2>
+                    <p>观看《碎光怀表》的游戏攻略、开发日志和玩家创作视频</p>
+                </div>
+                
+                <div class="section-header">
+                    <h3>所有视频</h3>
+                    <button class="btn" id="create-video"><i class="fas fa-plus"></i> 添加视频</button>
+                </div>
+                
+                <div class="videos-grid" id="videos-grid">
+                    <!-- 动态生成视频卡片 -->
+                </div>
+            </section>
+
+            <!-- 视频播放器模态框 -->
+            <div class="modal video-modal" id="video-modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="video-modal-title">视频播放</h3>
+                        <button class="modal-close">&times;</button>
+                    </div>
+                    <div class="video-player" id="video-player">
+                        <!-- 动态生成视频播放器 -->
+                    </div>
+                    <div class="video-player-info">
+                        <div class="video-player-title" id="video-player-title"></div>
+                        <div class="video-player-meta">
+                            <span id="video-player-author"></span>
+                            <span id="video-player-views"></span>
+                        </div>
+                        <div class="video-player-actions">
+                            <button class="btn btn-sm" id="video-like-btn">
+                                <i class="far fa-heart"></i> <span id="video-likes-count">0</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline" id="video-share-btn">
+                                <i class="fas fa-share"></i> 分享
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 视频发布表单 -->
+            <section class="form-container fade-in" id="video-form-container" style="display: none;">
+                <h2 id="video-form-title">添加视频</h2>
+                <form id="video-form">
+                    <input type="hidden" id="video-id">
+                    
+                    <div class="form-group">
+                        <label for="video-title">视频标题</label>
+                        <input type="text" id="video-title" class="form-control" placeholder="输入视频标题" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="video-description">视频描述</label>
+                        <textarea id="video-description" class="form-control" placeholder="输入视频描述..." rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>视频平台</label>
+                        <div class="video-platforms">
+                            <label class="platform-option" data-platform="youtube">
+                                <input type="radio" name="platform" value="youtube" required>
+                                <i class="fab fa-youtube platform-icon"></i>
+                                <span>YouTube</span>
+                            </label>
+                            <label class="platform-option" data-platform="bilibili">
+                                <input type="radio" name="platform" value="bilibili">
+                                <i class="fas fa-play-circle platform-icon"></i>
+                                <span>哔哩哔哩</span>
+                            </label>
+                            <label class="platform-option" data-platform="direct">
+                                <input type="radio" name="platform" value="direct">
+                                <i class="fas fa-video platform-icon"></i>
+                                <span>直链视频</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="video-url">视频URL/嵌入代码</label>
+                        <input type="text" id="video-url" class="form-control" 
+                            placeholder="输入视频链接或嵌入代码" required>
+                        <small style="color: var(--text-light);">
+                            YouTube/B站：输入视频链接（如：https://www.youtube.com/watch?v=xxx）<br>
+                            直链视频：输入.mp4/.webm等视频文件直链
+                        </small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="video-thumbnail">封面图URL（可选）</label>
+                        <input type="text" id="video-thumbnail" class="form-control" 
+                            placeholder="输入封面图链接">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="video-duration">视频时长（可选）</label>
+                        <input type="text" id="video-duration" class="form-control" 
+                            placeholder="如：12:34">
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" id="cancel-video-form">取消</button>
+                        <button type="submit" class="btn" id="submit-video">发布视频</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- 公告页面 -->
+            <section class="wiki-announcements fade-in" id="wiki-announcements" style="display: none;">
+                <div class="wiki-header">
+                    <h2>官方公告</h2>
+                    <p>《碎光怀表》开发团队发布的最新消息和更新通知</p>
+                </div>
+                
+                <div class="section-header">
+                    <h3>公告列表</h3>
+                    <button class="btn" id="create-announcement"><i class="fas fa-plus"></i> 发布公告</button>
+                </div>
+                
+                <div class="announcements-list" id="announcements-list">
+                    <!-- 动态生成公告列表 -->
+                </div>
+            </section>
+
+            <!-- 公告表单 -->
+            <section class="form-container fade-in" id="announcement-form-container" style="display: none;">
+                <h2 id="announcement-form-title">发布新公告</h2>
+                <form id="announcement-form">
+                    <input type="hidden" id="announcement-id">
+                    <div class="form-group">
+                        <label for="announcement-title">公告标题</label>
+                        <input type="text" id="announcement-title" class="form-control" placeholder="输入公告标题" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="announcement-content">公告内容</label>
+                        <textarea id="announcement-content" class="form-control" placeholder="输入公告内容..." rows="6" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="announcement-pinned"> 置顶此公告
+                        </label>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" id="cancel-announcement-form">取消</button>
+                        <button type="submit" class="btn" id="submit-announcement">发布公告</button>
+                    </div>
+                </form>
+            </section>
+            
+            <!-- 条目列表页面 -->
+            <section class="wiki-entries fade-in" id="wiki-entries" style="display: none;">
+                <div class="wiki-header">
+                    <h2>所有条目</h2>
+                    <p>浏览《碎光怀表》Wiki中的所有内容条目</p>
+                </div>
+                
+                <div class="section-header">
+                    <h3>条目列表</h3>
+                    <div class="category-filter">
+                        <select id="category-filter" class="form-control" style="width: auto; display: inline-block;">
+                            <option value="all">所有分类</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <ul class="entry-list" id="all-entries-list">
+                    <!-- 动态生成 -->
+                </ul>
+            </section>
+            
+            <!-- 条目详情页 -->
+            <section class="entry-detail fade-in" id="entry-detail" style="display: none;">
+                <!-- 动态生成 -->
+            </section>
+            
+            <!-- 创建/编辑条目表单 -->
+            <section class="form-container fade-in" id="entry-form-container" style="display: none;">
+                <h2 id="form-title">创建新条目</h2>
+                <form id="entry-form">
+                    <input type="hidden" id="entry-id">
+                    <div class="form-group">
+                        <label for="entry-title">条目标题</label>
+                        <input type="text" id="entry-title" class="form-control" placeholder="输入条目标题" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="entry-category">分类</label>
+                        <select id="entry-category" class="form-control" required>
+                            <option value="">选择分类</option>
+                            <option value="角色">角色</option>
+                            <option value="地点">地点</option>
+                            <option value="物品">物品</option>
+                            <option value="谜题">谜题</option>
+                            <option value="剧情">剧情</option>
+                            <option value="时间机制">时间机制</option>
+                            <option value="怀表功能">怀表功能</option>
+                            <option value="特殊能力">特殊能力</option>
+                            <option value="物品收集">物品收集</option>
+                            <option value="攻略">攻略</option>
+                            <option value="其他">其他</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="entry-image">图片链接 (可选)</label>
+                        <input type="text" id="entry-image" class="form-control" placeholder="输入图片URL">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="entry-content">内容</label>
+                        <textarea id="entry-content" class="form-control" placeholder="输入条目内容..." required></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" id="cancel-form">取消</button>
+                        <button type="submit" class="btn" id="submit-form">保存条目</button>
+                    </div>
+                </form>
+            </section>
+            
+            <!-- 导入导出页面 -->
+            <section class="import-export fade-in" id="import-export" style="display: none;">
+                <div class="wiki-header">
+                    <h2>数据管理</h2>
+                    <p>导入或导出Wiki数据，备份或与他人共享</p>
+                </div>
+                
+                <div class="form-group">
+                    <label>导出数据</label>
+                    <p>将当前Wiki中的所有数据导出为JSON文件，用于备份或与他人共享。</p>
+                    <div class="import-export-actions">
+                        <button class="btn" id="export-data"><i class="fas fa-download"></i> 导出数据</button>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>导入数据</label>
+                    <p>从JSON文件导入Wiki数据，将合并到现有数据中（重复ID的条目将被跳过）。</p>
+                    <div class="import-export-actions">
+                        <input type="file" id="import-file" accept=".json" style="display: none;">
+                        <button class="btn btn-outline" id="import-trigger"><i class="fas fa-upload"></i> 选择文件</button>
+                        <button class="btn" id="import-data" disabled><i class="fas fa-file-import"></i> 导入数据</button>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>清空数据</label>
+                    <p>删除所有Wiki数据，此操作不可逆，请谨慎使用。</p>
+                    <div class="import-export-actions">
+                        <button class="btn" id="clear-data" style="background-color: #ff6b8b;"><i class="fas fa-trash"></i> 清空所有数据</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // 数据存储和管理
+        const WikiDB = {
+            // 从localStorage加载数据
+            load: function() {
+                const data = localStorage.getItem('sgl_wiki_data');
+                return data ? JSON.parse(data) : {
+                    entries: [],
+                    announcements: [],
+                    videos: [],
+                    users: ['玩家'],
+                    currentUser: '玩家'
+                };
+            },
+            
+            // 保存数据到localStorage
+            save: function(data) {
+                localStorage.setItem('sgl_wiki_data', JSON.stringify(data));
+            },
+            
+            // 获取所有条目
+            getEntries: function() {
+                return this.load().entries;
+            },
+            
+            // 添加新条目
+            addEntry: function(entry) {
+                const data = this.load();
+                entry.id = Date.now();
+                entry.author = data.currentUser;
+                entry.created = new Date().toISOString();
+                entry.updated = entry.created;
+                entry.views = 0;
+                
+                data.entries.unshift(entry);
+                this.save(data);
+                return entry;
+            },
+            
+            // 更新条目
+            updateEntry: function(id, updates) {
+                const data = this.load();
+                const index = data.entries.findIndex(entry => entry.id === id);
+                
+                if (index !== -1) {
+                    data.entries[index] = {
+                        ...data.entries[index],
+                        ...updates,
+                        updated: new Date().toISOString()
+                    };
+                    this.save(data);
+                    return data.entries[index];
+                }
+                
+                return null;
+            },
+            
+            // 删除条目
+            deleteEntry: function(id) {
+                const data = this.load();
+                data.entries = data.entries.filter(entry => entry.id !== id);
+                this.save(data);
+            },
+            
+            // 根据ID获取条目
+            getEntry: function(id) {
+                const data = this.load();
+                return data.entries.find(entry => entry.id === id);
+            },
+            
+            // 增加浏览量
+            incrementViews: function(id) {
+                const data = this.load();
+                const entry = data.entries.find(entry => entry.id === id);
+                
+                if (entry) {
+                    entry.views = (entry.views || 0) + 1;
+                    this.save(data);
+                }
+            },
+            
+            // 获取所有分类
+            getCategories: function() {
+                const entries = this.getEntries();
+                const categories = [...new Set(entries.map(entry => entry.category))];
+                return categories.sort();
+            },
+            
+            // 根据分类获取条目
+            getEntriesByCategory: function(category) {
+                const entries = this.getEntries();
+                return category === 'all' ? entries : entries.filter(entry => entry.category === category);
+            },
+            
+            // 搜索条目
+            searchEntries: function(query) {
+                const entries = this.getEntries();
+                const lowerQuery = query.toLowerCase();
+                return entries.filter(entry => 
+                    entry.title.toLowerCase().includes(lowerQuery) || 
+                    entry.content.toLowerCase().includes(lowerQuery)
+                );
+            },
+            
+            // 获取统计数据
+            getStats: function() {
+                const data = this.load();
+                const entries = data.entries;
+                const today = new Date().toDateString();
+                
+                return {
+                    totalEntries: entries.length,
+                    categories: this.getCategories().length,
+                    authors: [...new Set(entries.map(entry => entry.author))].length,
+                    todayUpdates: entries.filter(entry => 
+                        new Date(entry.updated).toDateString() === today
+                    ).length
+                };
+            },
+
+            // 获取所有公告
+            getAnnouncements: function() {
+                const data = this.load();
+                return data.announcements || [];
+            },
+
+            // 添加新公告
+            addAnnouncement: function(announcement) {
+                const data = this.load();
+                if (!data.announcements) data.announcements = [];
+                
+                announcement.id = Date.now();
+                announcement.author = data.currentUser;
+                announcement.created = new Date().toISOString();
+                announcement.pinned = announcement.pinned || false;
+                
+                data.announcements.unshift(announcement);
+                this.save(data);
+                return announcement;
+            },
+
+            // 更新公告
+            updateAnnouncement: function(id, updates) {
+                const data = this.load();
+                if (!data.announcements) return null;
+                
+                const index = data.announcements.findIndex(ann => ann.id === id);
+                if (index !== -1) {
+                    data.announcements[index] = {
+                        ...data.announcements[index],
+                        ...updates,
+                        updated: new Date().toISOString()
+                    };
+                    this.save(data);
+                    return data.announcements[index];
+                }
+                return null;
+            },
+
+            // 删除公告
+            deleteAnnouncement: function(id) {
+                const data = this.load();
+                if (!data.announcements) return;
+                
+                data.announcements = data.announcements.filter(ann => ann.id !== id);
+                this.save(data);
+            },
+
+            // 获取置顶公告
+            getPinnedAnnouncements: function() {
+                const announcements = this.getAnnouncements();
+                return announcements.filter(ann => ann.pinned);
+            },
+            
+            // 设置当前用户
+            setCurrentUser: function(username) {
+                const data = this.load();
+                data.currentUser = username;
+                
+                if (!data.users.includes(username)) {
+                    data.users.push(username);
+                }
+                
+                this.save(data);
+            },
+            
+            // 获取当前用户
+            getCurrentUser: function() {
+                return this.load().currentUser;
+            },
+
+            // 获取所有视频
+            getVideos: function() {
+                const data = this.load();
+                return data.videos || [];
+            },
+
+            // 添加新视频
+            addVideo: function(video) {
+                const data = this.load();
+                if (!data.videos) data.videos = [];
+                
+                video.id = Date.now();
+                video.author = data.currentUser;
+                video.created = new Date().toISOString();
+                video.views = 0;
+                video.likes = 0;
+                
+                data.videos.unshift(video);
+                this.save(data);
+                return video;
+            },
+
+            // 更新视频
+            updateVideo: function(id, updates) {
+                const data = this.load();
+                if (!data.videos) return null;
+                
+                const index = data.videos.findIndex(video => video.id === id);
+                if (index !== -1) {
+                    data.videos[index] = {
+                        ...data.videos[index],
+                        ...updates,
+                        updated: new Date().toISOString()
+                    };
+                    this.save(data);
+                    return data.videos[index];
+                }
+                return null;
+            },
+
+            // 删除视频
+            deleteVideo: function(id) {
+                const data = this.load();
+                if (!data.videos) return;
+                
+                data.videos = data.videos.filter(video => video.id !== id);
+                this.save(data);
+            },
+
+            // 增加视频浏览量
+            incrementVideoViews: function(id) {
+                const data = this.load();
+                const video = data.videos.find(video => video.id === id);
+                
+                if (video) {
+                    video.views = (video.views || 0) + 1;
+                    this.save(data);
+                }
+            },
+
+            // 视频点赞
+            likeVideo: function(id) {
+                const data = this.load();
+                const video = data.videos.find(video => video.id === id);
+                
+                if (video) {
+                    video.likes = (video.likes || 0) + 1;
+                    this.save(data);
+                    return video.likes;
+                }
+                return 0;
+            },
+            
+            // 导出数据
+            exportData: function() {
+                return JSON.stringify(this.load(), null, 2);
+            },
+            
+            // 导入数据
+            importData: function(jsonData) {
+                try {
+                    const importedData = JSON.parse(jsonData);
+                    const currentData = this.load();
+                    
+                    // 合并用户
+                    const mergedUsers = [...new Set([...currentData.users, ...importedData.users])];
+                    
+                    // 合并条目，避免ID冲突
+                    const existingIds = currentData.entries.map(entry => entry.id);
+                    const newEntries = importedData.entries.filter(entry => !existingIds.includes(entry.id));
+                    
+                    const mergedData = {
+                        entries: [...currentData.entries, ...newEntries],
+                        users: mergedUsers,
+                        currentUser: currentData.currentUser
+                    };
+                    
+                    this.save(mergedData);
+                    return { success: true, imported: newEntries.length };
+                } catch (error) {
+                    return { success: false, error: error.message };
+                }
+            },
+            
+            // 清空所有数据
+            clearData: function() {
+                const data = {
+                    entries: [],
+                    users: [this.getCurrentUser()],
+                    currentUser: this.getCurrentUser()
+                };
+                this.save(data);
+            }
+        };
+
+        // 界面管理
+        const UI = {
+            // 显示通知
+            showNotification: function(message, type = 'info') {
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                notification.innerHTML = `
+                    <i class="fas fa-${type === 'success' ? 'check' : type === 'error' ? 'exclamation' : 'info'}"></i>
+                    <span>${message}</span>
+                `;
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.classList.add('hide');
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 300);
+                }, 3000);
+            },
+            
+            // 切换页面
+            showPage: function(pageId) {
+                document.querySelectorAll('main > section').forEach(section => {
+                    section.style.display = 'none';
+                });
+                document.getElementById(pageId).style.display = 'block';
+                
+                // 更新侧边栏导航高亮
+                this.updateNavHighlight(pageId);
+            },
+
+            // 更新侧边栏导航高亮
+            updateNavHighlight: function(pageId) {
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                    
+                    if (link.getAttribute('data-page') === pageId) {
+                        link.classList.add('active');
+                    }
+                });
+            },
+            
+            // 渲染首页
+            renderHome: function() {
+                const stats = WikiDB.getStats();
+                document.getElementById('stat-entries').textContent = stats.totalEntries;
+                document.getElementById('stat-categories').textContent = stats.categories;
+                document.getElementById('stat-authors').textContent = stats.authors;
+                document.getElementById('stat-updates').textContent = stats.todayUpdates;
+                
+                // 渲染最近更新
+                const recentEntries = WikiDB.getEntries().slice(0, 5);
+                const recentList = document.getElementById('recent-entries-list');
+                recentList.innerHTML = recentEntries.map(entry => `
+                    <li class="entry-item">
+                        <div>
+                            <h4><a href="#" class="view-entry" data-id="${entry.id}">${entry.title}</a></h4>
+                            <div class="entry-meta">
+                                <span class="entry-category">${entry.category}</span>
+                                <span><i class="far fa-user"></i> ${entry.author}</span>
+                                <span><i class="far fa-clock"></i> ${new Date(entry.updated).toLocaleDateString()}</span>
+                            </div>
+                        </div>
+                        <div class="entry-actions">
+                            <button class="btn btn-sm btn-outline edit-entry" data-id="${entry.id}">编辑</button>
+                            <button class="btn btn-sm delete-entry" style="background-color: #ff6b8b;" data-id="${entry.id}">删除</button>
+                        </div>
+                    </li>
+                `).join('');
+
+                // 渲染首页公告
+                this.renderHomeAnnouncements();
+                
+                // 渲染热门页面（按浏览量排序）
+                const popularEntries = [...WikiDB.getEntries()]
+                    .sort((a, b) => (b.views || 0) - (a.views || 0))
+                    .slice(0, 4);
+                
+                const popularList = document.getElementById('popular-entries-list');
+                popularList.innerHTML = popularEntries.map(entry => `
+                    <li class="entry-item">
+                        <div>
+                            <h4><a href="#" class="view-entry" data-id="${entry.id}">${entry.title}</a></h4>
+                            <div class="entry-meta">
+                                <span><i class="far fa-eye"></i> ${entry.views || 0}</span>
+                            </div>
+                        </div>
+                    </li>
+                `).join('');
+                
+                // 渲染分类
+                const categories = WikiDB.getCategories();
+                const categoryList = document.getElementById('category-list');
+                categoryList.innerHTML = categories.map(category => {
+                    const count = WikiDB.getEntriesByCategory(category).length;
+                    return `<span class="category-tag" data-category="${category}">${category} (${count})</span>`;
+                }).join('');
+
+                // 渲染首页视频
+                this.renderHomeVideos();
+            },
+            
+            // 渲染所有条目页面
+            renderEntries: function(category = 'all') {
+                const entries = category === 'all' ? WikiDB.getEntries() : WikiDB.getEntriesByCategory(category);
+                const list = document.getElementById('all-entries-list');
+                
+                list.innerHTML = entries.map(entry => `
+                    <li class="entry-item">
+                        <div>
+                            <h4><a href="#" class="view-entry" data-id="${entry.id}">${entry.title}</a></h4>
+                            <div class="entry-meta">
+                                <span class="entry-category">${entry.category}</span>
+                                <span><i class="far fa-user"></i> ${entry.author}</span>
+                                <span><i class="far fa-clock"></i> ${new Date(entry.updated).toLocaleDateString()}</span>
+                                <span><i class="far fa-eye"></i> ${entry.views || 0}</span>
+                            </div>
+                        </div>
+                        <div class="entry-actions">
+                            <button class="btn btn-sm btn-outline edit-entry" data-id="${entry.id}">编辑</button>
+                            <button class="btn btn-sm delete-entry" style="background-color: #ff6b8b;" data-id="${entry.id}">删除</button>
+                        </div>
+                    </li>
+                `).join('');
+                
+                // 更新分类筛选器
+                const filter = document.getElementById('category-filter');
+                filter.innerHTML = '<option value="all">所有分类</option>' +
+                    WikiDB.getCategories().map(cat => 
+                        `<option value="${cat}" ${cat === category ? 'selected' : ''}>${cat}</option>`
+                    ).join('');
+            },
+
+            // 渲染公告页面
+            renderAnnouncements: function() {
+                const announcements = WikiDB.getAnnouncements();
+                const container = document.getElementById('announcements-list');
+                
+                if (announcements.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <i class="fas fa-bullhorn" style="font-size: 3rem; margin-bottom: 15px; color: var(--text-light);"></i>
+                            <p>暂无公告</p>
+                            <button class="btn" id="create-first-announcement" style="margin-top: 15px;">
+                                <i class="fas fa-plus"></i> 发布第一条公告
+                            </button>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                container.innerHTML = announcements.map(ann => `
+                    <div class="announcement-item ${ann.pinned ? 'pinned' : ''}">
+                        <div class="announcement-header">
+                            <div>
+                                <h3 class="announcement-title">${ann.title}</h3>
+                                <div class="announcement-meta">
+                                    <span><i class="far fa-user"></i> ${ann.author}</span>
+                                    <span><i class="far fa-clock"></i> ${new Date(ann.created).toLocaleDateString()}</span>
+                                    ${ann.pinned ? '<span class="announcement-pinned"><i class="fas fa-thumbtack"></i> 置顶</span>' : ''}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="announcement-content">
+                            ${ann.content.split('\n').map(para => `<p>${para}</p>`).join('')}
+                        </div>
+                        <div class="announcement-actions">
+                            <button class="btn btn-sm btn-outline edit-announcement" data-id="${ann.id}">编辑</button>
+                            <button class="btn btn-sm delete-announcement" style="background-color: #ff6b8b;" data-id="${ann.id}">删除</button>
+                            <button class="btn btn-sm ${ann.pinned ? '' : 'btn-outline'} pin-announcement" data-id="${ann.id}">
+                                <i class="fas fa-thumbtack"></i> ${ann.pinned ? '取消置顶' : '置顶'}
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            },
+
+            // 渲染首页公告预览
+            renderHomeAnnouncements: function() {
+                const announcements = WikiDB.getAnnouncements().slice(0, 3); // 只显示最新的3条
+                const container = document.getElementById('home-announcements');
+                
+                if (announcements.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state" style="padding: 20px;">
+                            <p>暂无公告</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                container.innerHTML = announcements.map(ann => `
+                    <div class="announcement-item ${ann.pinned ? 'pinned' : ''}">
+                        <div class="announcement-header">
+                            <div>
+                                <h4 class="announcement-title">${ann.title}</h4>
+                                <div class="announcement-meta">
+                                    <span><i class="far fa-clock"></i> ${new Date(ann.created).toLocaleDateString()}</span>
+                                    ${ann.pinned ? '<span class="announcement-pinned"><i class="fas fa-thumbtack"></i> 置顶</span>' : ''}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="announcement-content" style="font-size: 0.9rem;">
+                            ${ann.content.length > 100 ? ann.content.substring(0, 100) + '...' : ann.content}
+                        </div>
+                        <div class="announcement-actions" style="justify-content: flex-end;">
+                            <a href="#" class="btn btn-sm btn-outline view-all-announcements">查看详情</a>
+                        </div>
+                    </div>
+                `).join('');
+            },
+
+            // 显示公告表单
+            showAnnouncementForm: function(announcementId = null) {
+                const form = document.getElementById('announcement-form');
+                const title = document.getElementById('announcement-form-title');
+                
+                if (announcementId) {
+                    // 编辑模式
+                    title.textContent = '编辑公告';
+                    const announcement = WikiDB.getAnnouncements().find(ann => ann.id === parseInt(announcementId));
+                    
+                    document.getElementById('announcement-id').value = announcement.id;
+                    document.getElementById('announcement-title').value = announcement.title;
+                    document.getElementById('announcement-content').value = announcement.content;
+                    document.getElementById('announcement-pinned').checked = announcement.pinned;
+                } else {
+                    // 创建模式
+                    title.textContent = '发布新公告';
+                    form.reset();
+                    document.getElementById('announcement-id').value = '';
+                }
+                
+                UI.showPage('announcement-form-container');
+            },
+
+            // 渲染视频中心页面
+            renderVideos: function() {
+                const videos = WikiDB.getVideos();
+                const container = document.getElementById('videos-grid');
+                
+                if (videos.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state" style="grid-column: 1 / -1; text-align: center; padding: 60px 20px;">
+                            <i class="fas fa-video" style="font-size: 4rem; color: var(--text-light); margin-bottom: 20px;"></i>
+                            <h3 style="color: var(--text-light); margin-bottom: 15px;">暂无视频</h3>
+                            <p style="color: var(--text-light); margin-bottom: 20px;">快来添加第一个视频吧！</p>
+                            <button class="btn" id="create-first-video">
+                                <i class="fas fa-plus"></i> 添加视频
+                            </button>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                container.innerHTML = videos.map(video => `
+                    <div class="video-card" data-video-id="${video.id}">
+                        <div class="video-thumbnail" onclick="UI.playVideo(${video.id})">
+                            ${video.thumbnail ? 
+                                `<img src="${video.thumbnail}" alt="${video.title}" onerror="this.style.display='none'">` : 
+                                `<i class="fas fa-play"></i>`
+                            }
+                            <div class="play-button">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            ${video.duration ? `<span class="video-duration">${video.duration}</span>` : ''}
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title" title="${video.title}">${video.title}</div>
+                            <div class="video-description" title="${video.description}">${video.description || '暂无描述'}</div>
+                            <div class="video-meta">
+                                <div class="video-stats">
+                                    <span><i class="far fa-eye"></i> ${video.views || 0}</span>
+                                    <span><i class="far fa-heart"></i> ${video.likes || 0}</span>
+                                </div>
+                                <div class="video-actions">
+                                    <button class="btn btn-sm btn-outline edit-video" data-id="${video.id}">编辑</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            },
+
+            // 渲染首页视频预览
+            renderHomeVideos: function() {
+                const videos = WikiDB.getVideos().slice(0, 3); // 只显示最新的3个视频
+                const container = document.getElementById('home-videos-preview');
+                
+                if (videos.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state" style="text-align: center; padding: 40px 20px; grid-column: 1 / -1;">
+                            <p style="color: var(--text-light);">暂无视频内容</p>
+                            <button class="btn btn-outline" id="add-first-video-home" style="margin-top: 10px;">
+                                <i class="fas fa-plus"></i> 添加视频
+                            </button>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                container.innerHTML = videos.map(video => `
+                    <div class="video-card" data-video-id="${video.id}">
+                        <div class="video-thumbnail" onclick="UI.playVideo(${video.id})">
+                            ${video.thumbnail ? 
+                                `<img src="${video.thumbnail}" alt="${video.title}" onerror="this.style.display='none'">` : 
+                                `<i class="fas fa-play"></i>`
+                            }
+                            <div class="play-button">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            ${video.duration ? `<span class="video-duration">${video.duration}</span>` : ''}
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title" title="${video.title}">${video.title}</div>
+                            <div class="video-meta">
+                                <span><i class="far fa-eye"></i> ${video.views || 0}</span>
+                                <span><i class="far fa-heart"></i> ${video.likes || 0}</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            },
+
+            // 播放视频
+            playVideo: function(videoId) {
+                const video = WikiDB.getVideos().find(v => v.id === videoId);
+                if (!video) return;
+                
+                // 增加浏览量
+                WikiDB.incrementVideoViews(videoId);
+                
+                // 更新视频信息
+                document.getElementById('video-modal-title').textContent = video.title;
+                document.getElementById('video-player-title').textContent = video.title;
+                document.getElementById('video-player-author').textContent = `发布者：${video.author}`;
+                document.getElementById('video-player-views').textContent = `播放：${(video.views || 0) + 1}次`;
+                document.getElementById('video-likes-count').textContent = video.likes || 0;
+                
+                // 生成视频播放器
+                const playerContainer = document.getElementById('video-player');
+                playerContainer.innerHTML = this.generateVideoPlayer(video);
+                
+                // 显示模态框
+                document.getElementById('video-modal').style.display = 'flex';
+                
+                // 更新界面
+                this.renderVideos();
+                this.renderHomeVideos();
+            },
+
+            // 生成视频播放器
+            generateVideoPlayer: function(video) {
+                const url = video.url;
+                
+                if (video.platform === 'youtube') {
+                    // 提取YouTube视频ID
+                    const videoId = this.extractYouTubeId(url);
+                    if (videoId) {
+                        return `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen></iframe>`;
+                    }
+                } else if (video.platform === 'bilibili') {
+                    // 提取B站视频ID
+                    const videoId = this.extractBilibiliId(url);
+                    if (videoId) {
+                        return `<iframe src="//player.bilibili.com/player.html?bvid=${videoId}&autoplay=1" 
+                                scrolling="no" border="0" frameborder="no" framespacing="0" 
+                                allowfullscreen="true"></iframe>`;
+                    }
+                } else if (video.platform === 'direct') {
+                    // 直接视频链接
+                    return `<video controls autoplay style="width:100%; height:100%;">
+                                <source src="${url}" type="video/mp4">
+                                您的浏览器不支持视频播放
+                            </video>`;
+                }
+                
+                // 默认情况：使用原链接
+                return `<div style="padding: 40px; text-align: center; color: white;">
+                            <i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                            <p>无法加载视频，请检查链接是否正确</p>
+                            <a href="${url}" target="_blank" style="color: var(--primary);">在新窗口打开视频</a>
+                        </div>`;
+            },
+
+            // 提取YouTube视频ID
+            extractYouTubeId: function(url) {
+                const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+                const match = url.match(regExp);
+                return (match && match[7].length === 11) ? match[7] : null;
+            },
+
+            // 提取B站视频ID
+            extractBilibiliId: function(url) {
+                const regExp = /(BV[0-9A-Za-z]{10})/;
+                const match = url.match(regExp);
+                return match ? match[1] : null;
+            },
+
+            // 显示视频发布表单
+            showVideoForm: function(videoId = null) {
+                const form = document.getElementById('video-form');
+                const title = document.getElementById('video-form-title');
+                
+                if (videoId) {
+                    // 编辑模式
+                    title.textContent = '编辑视频';
+                    const video = WikiDB.getVideos().find(v => v.id === videoId);
+                    
+                    document.getElementById('video-id').value = video.id;
+                    document.getElementById('video-title').value = video.title;
+                    document.getElementById('video-description').value = video.description || '';
+                    document.getElementById('video-url').value = video.url;
+                    document.getElementById('video-thumbnail').value = video.thumbnail || '';
+                    document.getElementById('video-duration').value = video.duration || '';
+                    
+                    // 设置平台
+                    document.querySelectorAll('.platform-option').forEach(option => {
+                        option.classList.remove('selected');
+                        if (option.getAttribute('data-platform') === video.platform) {
+                            option.classList.add('selected');
+                            option.querySelector('input').checked = true;
+                        }
+                    });
+                } else {
+                    // 创建模式
+                    title.textContent = '添加视频';
+                    form.reset();
+                    document.getElementById('video-id').value = '';
+                    
+                    // 默认选择YouTube
+                    document.querySelectorAll('.platform-option').forEach(option => {
+                        option.classList.remove('selected');
+                    });
+                    document.querySelector('.platform-option[data-platform="youtube"]').classList.add('selected');
+                    document.querySelector('input[value="youtube"]').checked = true;
+                }
+                
+                UI.showPage('video-form-container');
+            },
+
+            // 渲染条目详情
+            renderEntry: function(id) {
+                const entry = WikiDB.getEntry(parseInt(id));
+                if (!entry) {
+                    UI.showNotification('条目不存在', 'error');
+                    UI.showPage('wiki-home');
+                    return;
+                }
+                
+                // 增加浏览量
+                WikiDB.incrementViews(entry.id);
+                
+                const container = document.getElementById('entry-detail');
+                container.innerHTML = `
+                    <div class="entry-header">
+                        <h2>${entry.title}</h2>
+                        <div class="entry-header-meta">
+                            <span class="entry-category">${entry.category}</span>
+                            <span><i class="far fa-user"></i> ${entry.author}</span>
+                            <span><i class="far fa-clock"></i> ${new Date(entry.updated).toLocaleDateString()}</span>
+                            <span><i class="far fa-eye"></i> ${entry.views || 0} 次浏览</span>
+                        </div>
+                    </div>
+                    <div class="entry-content">
+                        ${entry.image ? `<img src="${entry.image}" alt="${entry.title}">` : ''}
+                        ${entry.content.split('\n').map(para => `<p>${para}</p>`).join('')}
+                    </div>
+                    <div class="entry-actions">
+                        <button class="btn btn-outline" id="back-to-list"><i class="fas fa-arrow-left"></i> 返回列表</button>
+                        <button class="btn edit-entry" data-id="${entry.id}"><i class="fas fa-edit"></i> 编辑条目</button>
+                        <button class="btn delete-entry" style="background-color: #ff6b8b;" data-id="${entry.id}"><i class="fas fa-trash"></i> 删除条目</button>
+                    </div>
+                `;
+                
+                UI.showPage('entry-detail');
+            },
+            
+            // 显示创建/编辑表单
+            showEntryForm: function(entryId = null) {
+                const form = document.getElementById('entry-form');
+                const title = document.getElementById('form-title');
+                
+                if (entryId) {
+                    // 编辑模式
+                    title.textContent = '编辑条目';
+                    const entry = WikiDB.getEntry(parseInt(entryId));
+                    
+                    document.getElementById('entry-id').value = entry.id;
+                    document.getElementById('entry-title').value = entry.title;
+                    document.getElementById('entry-category').value = entry.category;
+                    document.getElementById('entry-image').value = entry.image || '';
+                    document.getElementById('entry-content').value = entry.content;
+                } else {
+                    // 创建模式
+                    title.textContent = '创建新条目';
+                    form.reset();
+                    document.getElementById('entry-id').value = '';
+                }
+                
+                UI.showPage('entry-form-container');
+            },
+            
+            // 初始化事件监听
+            initEventListeners: function() {
+                // 侧边栏导航点击事件
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        
+                        const pageId = link.getAttribute('data-page');
+                        const category = link.getAttribute('data-category');
+                        
+                        if (pageId) {
+                            // 页面导航
+                            this.showPage(pageId);
+                            
+                            // 根据页面ID渲染对应内容
+                            if (pageId === 'wiki-home') {
+                                this.renderHome();
+                            } else if (pageId === 'wiki-entries') {
+                                this.renderEntries();
+                            } else if (pageId === 'wiki-announcements') {
+                                this.renderAnnouncements();
+                            } else if (pageId === 'wiki-videos') {
+                                this.renderVideos();
+                            }
+                        } else if (category) {
+                            // 分类导航
+                            this.showPage('wiki-entries');
+                            this.renderEntries(category);
+                        }
+                    });
+                });
+                
+                // 查看全部按钮事件
+                document.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('view-all-entries')) {
+                        e.preventDefault();
+                        this.showPage('wiki-entries');
+                        this.renderEntries();
+                    } else if (e.target.classList.contains('view-all-announcements')) {
+                        e.preventDefault();
+                        this.showPage('wiki-announcements');
+                        this.renderAnnouncements();
+                    } else if (e.target.classList.contains('view-all-videos')) {
+                        e.preventDefault();
+                        this.showPage('wiki-videos');
+                        this.renderVideos();
+                    }
+                });
+                
+                // 创建条目按钮
+                document.getElementById('create-entry').addEventListener('click', () => {
+                    this.showEntryForm();
+                });
+                
+                // 取消表单
+                document.getElementById('cancel-form').addEventListener('click', () => {
+                    this.showPage('wiki-home');
+                    this.renderHome();
+                });
+                
+                // 提交表单
+                document.getElementById('entry-form').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                    const id = document.getElementById('entry-id').value;
+                    const title = document.getElementById('entry-title').value;
+                    const category = document.getElementById('entry-category').value;
+                    const image = document.getElementById('entry-image').value;
+                    const content = document.getElementById('entry-content').value;
+                    
+                    if (id) {
+                        // 更新条目
+                        WikiDB.updateEntry(parseInt(id), { title, category, image, content });
+                        this.showNotification('条目更新成功', 'success');
+                    } else {
+                        // 创建新条目
+                        WikiDB.addEntry({ title, category, image, content });
+                        this.showNotification('条目创建成功', 'success');
+                    }
+                    
+                    this.showPage('wiki-home');
+                    this.renderHome();
+                });
+                
+                // 查看条目
+                document.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('view-entry')) {
+                        e.preventDefault();
+                        const id = e.target.getAttribute('data-id');
+                        this.renderEntry(id);
+                    }
+                });
+                
+                // 编辑条目
+                document.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('edit-entry')) {
+                        e.preventDefault();
+                        const id = e.target.getAttribute('data-id');
+                        this.showEntryForm(id);
+                    }
+                });
+                
+                // 删除条目
+                document.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('delete-entry')) {
+                        e.preventDefault();
+                        const id = e.target.getAttribute('data-id');
+                        
+                        if (confirm('确定要删除这个条目吗？此操作不可撤销。')) {
+                            WikiDB.deleteEntry(parseInt(id));
+                            this.showNotification('条目已删除', 'success');
+                            
+                            // 刷新当前视图
+                            if (document.getElementById('wiki-home').style.display !== 'none') {
+                                this.renderHome();
+                            } else if (document.getElementById('wiki-entries').style.display !== 'none') {
+                                this.renderEntries();
+                            } else if (document.getElementById('entry-detail').style.display !== 'none') {
+                                this.showPage('wiki-home');
+                                this.renderHome();
+                            }
+                        }
+                    }
+                });
+                
+                // 返回列表按钮
+                document.addEventListener('click', (e) => {
+                    if (e.target.id === 'back-to-list') {
+                        this.showPage('wiki-entries');
+                        this.renderEntries();
+                    }
+                });
+
+                // 公告相关事件
+                document.getElementById('create-announcement').addEventListener('click', () => {
+                    this.showAnnouncementForm();
+                });
+
+                // 创建第一条公告按钮
+                document.addEventListener('click', (e) => {
+                    if (e.target.id === 'create-first-announcement') {
+                        this.showAnnouncementForm();
+                    }
+                });
+
+                // 取消公告表单
+                document.getElementById('cancel-announcement-form').addEventListener('click', () => {
+                    this.showPage('wiki-announcements');
+                    this.renderAnnouncements();
+                });
+
+                // 提交公告表单
+                document.getElementById('announcement-form').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                    const id = document.getElementById('announcement-id').value;
+                    const title = document.getElementById('announcement-title').value;
+                    const content = document.getElementById('announcement-content').value;
+                    const pinned = document.getElementById('announcement-pinned').checked;
+                    
+                    if (id) {
+                        // 更新公告
+                        WikiDB.updateAnnouncement(parseInt(id), { title, content, pinned });
+                        this.showNotification('公告更新成功', 'success');
+                    } else {
+                        // 创建新公告
+                        WikiDB.addAnnouncement({ title, content, pinned });
+                        this.showNotification('公告发布成功', 'success');
+                    }
+                    
+                    this.showPage('wiki-announcements');
+                    this.renderAnnouncements();
+                });
+
+                // 编辑公告
+                document.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('edit-announcement')) {
+                        e.preventDefault();
+                        const id = e.target.getAttribute('data-id');
+                        this.showAnnouncementForm(id);
+                    }
+                });
+
+                // 删除公告
+                document.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('delete-announcement')) {
+                        e.preventDefault();
+                        const id = e.target.getAttribute('data-id');
+                        
+                        if (confirm('确定要删除这个公告吗？此操作不可撤销。')) {
+                            WikiDB.deleteAnnouncement(parseInt(id));
+                            this.showNotification('公告已删除', 'success');
+                            this.renderAnnouncements();
+                        }
+                    }
+                });
+
+                // 置顶/取消置顶公告
+                document.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('pin-announcement')) {
+                        e.preventDefault();
+                        const id = e.target.getAttribute('data-id');
+                        const announcement = WikiDB.getAnnouncements().find(ann => ann.id === parseInt(id));
+                        
+                        if (announcement) {
+                            WikiDB.updateAnnouncement(parseInt(id), { pinned: !announcement.pinned });
+                            this.showNotification(announcement.pinned ? '已取消置顶' : '公告已置顶', 'success');
+                            this.renderAnnouncements();
+                        }
+                    }
+                });
+
+                // 视频相关事件
+                document.getElementById('create-video').addEventListener('click', () => {
+                    this.showVideoForm();
+                });
+
+                // 创建第一个视频按钮
+                document.addEventListener('click', (e) => {
+                    if (e.target.id === 'create-first-video' || e.target.id === 'add-first-video-home') {
+                        this.showVideoForm();
+                    }
+                });
+
+                // 取消视频表单
+                document.getElementById('cancel-video-form').addEventListener('click', () => {
+                    this.showPage('wiki-videos');
+                    this.renderVideos();
+                });
+
+                // 提交视频表单
+                document.getElementById('video-form').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    
+                    const id = document.getElementById('video-id').value;
+                    const title = document.getElementById('video-title').value;
+                    const description = document.getElementById('video-description').value;
+                    const platform = document.querySelector('input[name="platform"]:checked').value;
+                    const url = document.getElementById('video-url').value;
+                    const thumbnail = document.getElementById('video-thumbnail').value;
+                    const duration = document.getElementById('video-duration').value;
+                    
+                    if (id) {
+                        // 更新视频
+                        WikiDB.updateVideo(parseInt(id), { title, description, platform, url, thumbnail, duration });
+                        this.showNotification('视频更新成功', 'success');
+                    } else {
+                        // 创建新视频
+                        WikiDB.addVideo({ title, description, platform, url, thumbnail, duration });
+                        this.showNotification('视频发布成功', 'success');
+                    }
+                    
+                    this.showPage('wiki-videos');
+                    this.renderVideos();
+                    this.renderHomeVideos();
+                });
+
+                // 平台选择
+                document.querySelectorAll('.platform-option').forEach(option => {
+                    option.addEventListener('click', () => {
+                        document.querySelectorAll('.platform-option').forEach(opt => {
+                            opt.classList.remove('selected');
+                        });
+                        option.classList.add('selected');
+                        option.querySelector('input').checked = true;
+                    });
+                });
+
+                // 编辑视频
+                document.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('edit-video')) {
+                        e.preventDefault();
+                        const id = e.target.getAttribute('data-id');
+                        this.showVideoForm(id);
+                    }
+                });
+
+                // 视频点赞
+                document.addEventListener('click', (e) => {
+                    if (e.target.id === 'video-like-btn' || e.target.closest('#video-like-btn')) {
+                        const videoId = document.querySelector('.video-card:hover')?.getAttribute('data-video-id');
+                        if (videoId) {
+                            const newLikes = WikiDB.likeVideo(parseInt(videoId));
+                            document.getElementById('video-likes-count').textContent = newLikes;
+                            this.showNotification('已点赞！', 'success');
+                            this.renderVideos();
+                            this.renderHomeVideos();
+                        }
+                    }
+                });
+
+                // 关闭视频模态框
+                document.querySelector('#video-modal .modal-close').addEventListener('click', () => {
+                    document.getElementById('video-modal').style.display = 'none';
+                });
+
+                // 点击视频模态框背景关闭
+                document.getElementById('video-modal').addEventListener('click', (e) => {
+                    if (e.target.id === 'video-modal') {
+                        document.getElementById('video-modal').style.display = 'none';
+                    }
+                });
+                
+                // 分类筛选
+                document.getElementById('category-filter').addEventListener('change', (e) => {
+                    this.renderEntries(e.target.value);
+                });
+                
+                // 分类标签点击
+                document.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('category-tag')) {
+                        const category = e.target.getAttribute('data-category');
+                        this.showPage('wiki-entries');
+                        this.renderEntries(category);
+                    }
+                });
+                
+                // 搜索功能
+                document.getElementById('search-input').addEventListener('input', (e) => {
+                    const query = e.target.value.trim();
+                    
+                    if (query.length > 0) {
+                        const results = WikiDB.searchEntries(query);
+                        this.showPage('wiki-entries');
+                        
+                        const list = document.getElementById('all-entries-list');
+                        list.innerHTML = results.map(entry => `
+                            <li class="entry-item">
+                                <div>
+                                    <h4><a href="#" class="view-entry" data-id="${entry.id}">${entry.title}</a></h4>
+                                    <div class="entry-meta">
+                                        <span class="entry-category">${entry.category}</span>
+                                        <span><i class="far fa-user"></i> ${entry.author}</span>
+                                        <span><i class="far fa-clock"></i> ${new Date(entry.updated).toLocaleDateString()}</span>
+                                    </div>
+                                </div>
+                            </li>
+                        `).join('');
+                    } else if (document.getElementById('wiki-entries').style.display !== 'none') {
+                        this.renderEntries();
+                    }
+                });
+                
+                // 导出数据
+                document.getElementById('export-data').addEventListener('click', () => {
+                    const data = WikiDB.exportData();
+                    const blob = new Blob([data], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = '碎光怀表_wiki数据.json';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                    
+                    this.showNotification('数据导出成功', 'success');
+                });
+                
+                // 导入数据
+                document.getElementById('import-trigger').addEventListener('click', () => {
+                    document.getElementById('import-file').click();
+                });
+                
+                document.getElementById('import-file').addEventListener('change', (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        document.getElementById('import-data').disabled = false;
+                    }
+                });
+                
+                document.getElementById('import-data').addEventListener('click', () => {
+                    const fileInput = document.getElementById('import-file');
+                    const file = fileInput.files[0];
+                    
+                    if (!file) {
+                        this.showNotification('请先选择文件', 'error');
+                        return;
+                    }
+                    
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const result = WikiDB.importData(e.target.result);
+                        
+                        if (result.success) {
+                            this.showNotification(`成功导入 ${result.imported} 个条目`, 'success');
+                            fileInput.value = '';
+                            document.getElementById('import-data').disabled = true;
+                            
+                            // 刷新首页
+                            if (document.getElementById('wiki-home').style.display !== 'none') {
+                                this.renderHome();
+                            }
+                        } else {
+                            this.showNotification(`导入失败: ${result.error}`, 'error');
+                        }
+                    };
+                    reader.readAsText(file);
+                });
+                
+                // 清空数据
+                document.getElementById('clear-data').addEventListener('click', () => {
+                    if (confirm('确定要清空所有数据吗？此操作不可撤销，所有条目将被永久删除。')) {
+                        WikiDB.clearData();
+                        this.showNotification('所有数据已清空', 'success');
+                        this.renderHome();
+                    }
+                });
+                
+                // 用户切换
+                document.getElementById('user-name').addEventListener('click', () => {
+                    const newName = prompt('请输入您的用户名:', WikiDB.getCurrentUser());
+                    if (newName && newName.trim() !== '') {
+                        WikiDB.setCurrentUser(newName.trim());
+                        document.getElementById('user-name').textContent = newName.trim();
+                        document.getElementById('user-avatar').textContent = newName.trim().charAt(0);
+                        this.showNotification(`用户已切换为: ${newName.trim()}`, 'success');
+                    }
+                });
+            },
+            
+            // 初始化
+            init: function() {
+                // 设置当前用户
+                const currentUser = WikiDB.getCurrentUser();
+                document.getElementById('user-name').textContent = currentUser;
+                document.getElementById('user-avatar').textContent = currentUser.charAt(0);
+                
+                // 初始化事件监听
+                this.initEventListeners();
+                
+                // 渲染首页
+                this.renderHome();
+                
+                // 添加一些示例数据（如果数据库为空）
+                if (WikiDB.getEntries().length === 0) {
+                    this.addSampleData();
+                }
+            },
+            
+            // 添加示例数据
+            addSampleData: function() {
+                const sampleEntries = [
+                    {
+                        title: '时间倒流能力详解',
+                        category: '特殊能力',
+                        content: '时间倒流是《碎光怀表》中的核心能力之一。通过激活怀表的时间倒流功能，玩家可以将场景恢复到之前的状态。\n\n使用技巧：\n1. 在解谜过程中，如果做出了错误的选择，可以使用时间倒流重新尝试\n2. 时间倒流有冷却时间，需要合理规划使用时机\n3. 某些谜题需要精确的时间倒流操作才能解决',
+                        image: ''
+                    },
+                    {
+                        title: '老钟表匠角色介绍',
+                        category: '角色',
+                        content: '老钟表匠是游戏中的重要NPC，也是主角的导师。他曾经是这块神秘怀表的守护者，但因年事已高，无法继续承担这一重任。\n\n角色特点：\n- 知识渊博，对时间魔法有深入研究\n- 性格温和，耐心指导主角掌握怀表的使用方法\n- 背后隐藏着一段与怀表相关的悲伤往事',
+                        image: ''
+                    },
+                    {
+                        title: '遗忘之塔区域攻略',
+                        category: '地点',
+                        content: '遗忘之塔是游戏中期的重要场景，这里充满了复杂的时间谜题和隐藏通道。\n\n攻略要点：\n1. 塔内的时钟机关需要按照特定顺序激活\n2. 利用时间静止能力通过移动平台\n3. 顶层藏有重要的怀表碎片',
+                        image: ''
+                    }
+                ];
+                
+                sampleEntries.forEach(entry => {
+                    WikiDB.addEntry(entry);
+                });
+
+                // 添加示例公告
+                const sampleAnnouncements = [
+                    {
+                        title: '《碎光怀表》开发进度更新',
+                        content: '亲爱的玩家们，感谢大家一直以来的支持！我们很高兴地宣布，《碎光怀表》的开发已经进入最后阶段。\n\n主要更新内容：\n- 完成了游戏主线剧情的全部配音\n- 优化了时间倒流系统的视觉效果\n- 修复了多个已知的游戏Bug\n\n我们预计在下个月发布游戏的试玩版，敬请期待！',
+                        pinned: true
+                    },
+                    {
+                        title: 'Wiki系统正式上线',
+                        content: '欢迎来到《碎光怀表》官方Wiki！\n\n在这里，你可以：\n- 查看游戏角色、地点和物品的详细介绍\n- 学习各种时间能力的用法和技巧\n- 分享你的游戏心得和发现\n\n让我们一起完善这个Wiki，为所有玩家提供最好的游戏指南！',
+                        pinned: false
+                    }
+                ];
+
+                sampleAnnouncements.forEach(announcement => {
+                    WikiDB.addAnnouncement(announcement);
+                });
+
+                // 添加示例视频
+                const sampleVideos = [
+                    {
+                        title: '《碎光怀表》游戏预告片',
+                        description: '官方游戏预告片，展示游戏的核心玩法和精美画面',
+                        platform: 'youtube',
+                        url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+                        thumbnail: '',
+                        duration: '2:30'
+                    },
+                    {
+                        title: '时间倒流能力实战演示',
+                        description: '详细展示时间倒流能力的各种应用场景和技巧',
+                        platform: 'bilibili',
+                        url: 'https://www.bilibili.com/video/BV1GJ411x7h7',
+                        thumbnail: '',
+                        duration: '5:45'
+                    }
+                ];
+
+                sampleVideos.forEach(video => {
+                    WikiDB.addVideo(video);
+                });
+                
+                this.showNotification('已加载示例数据，欢迎使用《碎光怀表》官方Wiki！', 'success');
+            }
+        };
+
+        // 初始化应用
+        document.addEventListener('DOMContentLoaded', () => {
+            UI.init();
+        });
+    </script>
+</body>
+</html>
