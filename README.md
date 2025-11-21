@@ -1,6 +1,6 @@
 <div align="center">
   <h1>
-<font face="华文行楷">🌈 碎光怀表·α测试</font>
+<font face="Radon">🌈 碎光怀表·α测试</font>
 
   <h2>✨ 欢迎来到 GitCode 团队 ✨</h1>
   <p><font face="华文新魏" size=5>让我们一起创造代码的奇迹 <img src="https://emojicdn.elk.sh/🌈" width="20"/></p>
