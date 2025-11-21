@@ -10,9 +10,8 @@
 
 <div align="center">
   <!-- 动态徽章区 -->
-  <img src="https://img.shields.io/badge/🧠-AI%20Powered-ff69b4" alt="AI Powered">
-  <img src="https://img.shields.io/github/last-commit/gitcode/tianqi?color=%23ffafcc" alt="Last Commit">
-  <img src="https://img.shields.io/badge/🐣-新手友好-9bf6ff" alt="Beginner Friendly">
+  <img src="https://img.shields.io/badge/🧠-AI%20Powered-ff69b4" alt="独立游戏">
+  <img src="https://img.shields.io/badge/🐣-内部测试-9bf6ff" alt="Beginner Friendly">
 </div>
 
 ---
